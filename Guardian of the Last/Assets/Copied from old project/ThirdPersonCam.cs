@@ -17,6 +17,7 @@ public class ThirdPersonCam : MonoBehaviour
     private void Awake()
     {
         input = new GuardianoftheLast();
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void OnEnable()
