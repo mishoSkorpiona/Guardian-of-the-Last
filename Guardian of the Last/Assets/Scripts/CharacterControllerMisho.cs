@@ -33,7 +33,7 @@ public class CharacterControllerMisho : MonoBehaviour
 
     void dragBottom()
     {
-        
+         
         _baseBone.transform.localPosition = -_rb.velocity.normalized * 0.01f;
     }
 
