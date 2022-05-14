@@ -112,7 +112,7 @@ MonoBehaviour:
   myRigidbody: {fileID: 4598033680256868929}
   stickMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 192
   playerCamera: {fileID: 0}
   stuck: 0
   throwDistance: 100
@@ -204,5 +204,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7e4ae8875b1fa94fa4e12eb3d90ee0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 0}
   sensetivity: 20
   body: {fileID: 8460928263113174054}

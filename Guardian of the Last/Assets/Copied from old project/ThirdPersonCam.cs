@@ -40,12 +40,14 @@ public class ThirdPersonCam : MonoBehaviour
 
         yRotation += deltaMouse.x;
 
+        yRotation %= 360;
+
         body.localRotation = Quaternion.Euler(xRotation, yRotation, 0);
 
         //transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
         //body.Rotate(Vector3.up * deltaMouse.x);
     }
-
+    
     public void SetCameraActive(bool active)
     {
         cam.enabled = active;

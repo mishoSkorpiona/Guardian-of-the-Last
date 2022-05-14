@@ -5,7 +5,9 @@ using UnityEngine.InputSystem;
 
 public class CharacterControllerMisho : MonoBehaviour
 {
-    [SerializeField] private Vector3 moveDirection;
+    public Transform localDirection;
+
+    Vector2 input;
 
     private Rigidbody _rb;
 
@@ -21,19 +23,23 @@ public class CharacterControllerMisho : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _rb.AddForce(moveDirection * _speed * Time.deltaTime*500);
+        Vector3 movement = input.y * localDirection.forward + input.x * localDirection.right;
+
+        movement *= _speed * Time.deltaTime;
+        movement.y = 0;
+
+        _rb.AddForce(movement * 500);
         dragBottom();
     }
 
-    void OnMove (InputValue input)
+    void OnMove (InputValue inputVal)
     {
-        moveDirection.x = input.Get<Vector2>().x;
-        moveDirection.z = input.Get<Vector2>().y;
+        input.x = inputVal.Get<Vector2>().x;
+        input.y = inputVal.Get<Vector2>().y;
     }
 
     void dragBottom()
     {
-         
         _baseBone.transform.localPosition = -_rb.velocity.normalized * 0.01f;
     }
 

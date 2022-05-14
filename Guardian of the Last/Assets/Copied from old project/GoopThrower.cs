@@ -8,6 +8,7 @@ public class GoopThrower : MonoBehaviour
     //spawnOffset is the distance between the projectile spawn position and our position, should be tweaked
     public float spawnOffset = 0.5f;
     public GameObject projectilePrefab;
+    public Transform spawnPosition;
 
     GameObject spawnedProjectile;
     GoopProjectile goopProjectile;
@@ -81,7 +82,7 @@ public class GoopThrower : MonoBehaviour
     {
         Transform cameraTransform = playerCam.transform;
 
-        spawnedProjectile = Instantiate(projectilePrefab, cameraTransform.position + cameraTransform.forward * spawnOffset, cameraTransform.rotation);
+        spawnedProjectile = Instantiate(projectilePrefab, spawnPosition.position + cameraTransform.forward * spawnOffset, cameraTransform.rotation);
 
         goopProjectile = spawnedProjectile.GetComponent<GoopProjectile>();
         goopProjectile.playerCamera = playerCam;
