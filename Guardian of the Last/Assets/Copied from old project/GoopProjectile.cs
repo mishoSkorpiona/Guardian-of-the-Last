@@ -8,7 +8,7 @@ public class GoopProjectile : MonoBehaviour
     public Rigidbody myRigidbody;
     public LayerMask stickMask;
 
-    public FirstPersonCam playerCamera;
+    public ThirdPersonCam playerCamera;
 
     //this is public so the thrower can know when it has stuck
     public bool stuck;
