@@ -30,8 +30,21 @@ public class KillOnSight : MonoBehaviour
                 go.GetComponent<PlayerInput>().enabled = false;
                 go.GetComponent<GoopThrower>().KillProjectile();
                 go.GetComponent<GoopThrower>().enabled = false;
-                go.GetComponentInChildren<ThirdPersonCam>().enabled = false;
+                ThirdPersonCam playerCam = go.GetComponentInChildren<ThirdPersonCam>();
+                playerCam.enabled = false;
+
+                //Jeff wants me to fuck with camera?  I fuck with camera
+                StartCoroutine(FuckWithCamera(playerCam.cam));
             }
+        }
+    }
+
+    public IEnumerator FuckWithCamera(Camera c)
+    {
+        while (true)
+        {
+            c.fieldOfView--;
+            yield return new WaitForFixedUpdate();
         }
     }
 }
