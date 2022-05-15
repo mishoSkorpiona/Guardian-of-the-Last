@@ -6,29 +6,39 @@ public class FirstPersonCam : MonoBehaviour
 {
     public Camera cam;
 
-    [SerializeField]
-    private float sensetivity;
+    public float sensitivity;
     private float xRotation;
-    [SerializeField]
-    private Transform body;
 
+    public Transform body;
 
-    private void Start()
+    //fuck this bullshit
+    GuardianoftheLast input;
+    private void Awake()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        input = new GuardianoftheLast();
     }
 
-
-    void Update()
+    private void OnEnable()
     {
-        float mouseY = Input.GetAxis("Mouse Y") * sensetivity * Time.deltaTime;
-        float mouseX = Input.GetAxis("Mouse X") * sensetivity * Time.deltaTime;
+        input.Enable();
+    }
 
-        xRotation -= mouseY;
+    private void OnDisable()
+    {
+        input.Disable();
+    }
+
+    private void Update()
+    {
+        Vector2 deltaMouse = input.Player.Look.ReadValue<Vector2>();
+
+        deltaMouse *= sensitivity / 50f;
+
+        xRotation -= deltaMouse.y;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
-        body.Rotate(Vector3.up * mouseX);
+        body.Rotate(Vector3.up * deltaMouse.x);
     }
 
     public void SetCameraActive(bool active)

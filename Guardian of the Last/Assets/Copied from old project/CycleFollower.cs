@@ -79,19 +79,19 @@ public class CycleFollower : MonoBehaviour
             }
 
             transform.position = startPos + currentDirection * distances[currentPoint];
-            startPos = transform.position;
 
-            if (currentPoint < waitTimes.Length && waitTimes[currentPoint] > 0)
+            if (currentPoint < waitTimes.Length && waitTimes[currentPoint] >= 0)
             {
                 animator.SetBool("Moving", false);
                 yield return new WaitForSeconds(waitTimes[currentPoint]);
             }
-            else if (defaultWaitTime > 0)
+            else if (defaultWaitTime > 0 || (currentPoint < waitTimes.Length && waitTimes[currentPoint] == -1))
             {
                 animator.SetBool("Moving", false);
                 yield return new WaitForSeconds(defaultWaitTime);
             }
 
+            startPos = transform.position;
             currentPoint++;
             currentPoint %= cycleLen;
 
