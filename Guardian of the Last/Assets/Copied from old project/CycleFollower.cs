@@ -110,6 +110,11 @@ public class CycleFollower : MonoBehaviour
 
         Gizmos.color = Color.green;
 
+        if (startPos == Vector3.zero)
+        {
+            startPos = transform.position;
+        }
+
         for (int i = 0; i < cycleLen; i++)
         {
             Vector3 pos = startPos;

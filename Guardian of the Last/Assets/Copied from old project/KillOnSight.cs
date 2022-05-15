@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class KillOnSight : MonoBehaviour
 {
@@ -38,13 +39,16 @@ public class KillOnSight : MonoBehaviour
 
                 playerCam.enabled = false;
 
-                playerCam.cam.transform.rotation = Quaternion.LookRotation((transform.position + Vector3.up * 1.7f) - playerCam.cam.transform.position, Vector3.up);
-                playerCam.cam.transform.parent = transform;
+                Vector3 myPosition = (transform.position + Vector3.up * 8f);
+
+                Debug.Log(myPosition);
+
+                playerCam.cam.transform.rotation = Quaternion.LookRotation(myPosition - playerCam.cam.transform.position);
 
                 am.Play("Death");
 
                 //Jeff wants me to fuck with camera?  I fuck with camera
-                StartCoroutine(FuckWithCamera(playerCam.cam));
+                StartCoroutine(FuckWithCamera(playerCam.cam, playerCam.cam.transform.position));
 
                 a.SetTrigger("Game Over");
                 Destroy(cf);
@@ -52,16 +56,19 @@ public class KillOnSight : MonoBehaviour
         }
     }
 
-    public IEnumerator FuckWithCamera(Camera c)
+    public IEnumerator FuckWithCamera(Camera c, Vector3 camPos)
     {
         float minFOV = 5;
         float timeInSeconds = 0;
 
-        while (true)
+        while (timeInSeconds / 0.7f < 1)
         {
-            timeInSeconds += Time.fixedDeltaTime;
+            c.transform.position = camPos;
+            timeInSeconds += Time.deltaTime;
             c.fieldOfView = Mathf.Lerp(90, minFOV, Mathf.Min(1, timeInSeconds / 0.7f));
-            yield return new WaitForFixedUpdate();
+            yield return null;
         }
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
