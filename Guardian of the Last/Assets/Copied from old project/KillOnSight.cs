@@ -7,6 +7,7 @@ public class KillOnSight : MonoBehaviour
 {
     public Animator a;
     public CycleFollower cf;
+    public SAudioManager am;
 
     public LayerMask playerMask;
     public LayerMask wallMask;
@@ -34,10 +35,13 @@ public class KillOnSight : MonoBehaviour
                 go.GetComponent<GoopThrower>().KillProjectile();
                 go.GetComponent<GoopThrower>().enabled = false;
                 ThirdPersonCam playerCam = go.GetComponentInChildren<ThirdPersonCam>();
+
                 playerCam.enabled = false;
 
                 playerCam.cam.transform.rotation = Quaternion.LookRotation((transform.position + Vector3.up * 1.7f) - playerCam.cam.transform.position, Vector3.up);
                 playerCam.cam.transform.parent = transform;
+
+                am.Play("Death");
 
                 //Jeff wants me to fuck with camera?  I fuck with camera
                 StartCoroutine(FuckWithCamera(playerCam.cam));

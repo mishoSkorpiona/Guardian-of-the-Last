@@ -207,7 +207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 382901637398977609}
-  sensitivity: 20
+  sensitivity: 10
   body: {fileID: 8460928263113174054}
 --- !u!114 &6624849452612980103
 MonoBehaviour:

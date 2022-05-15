@@ -25,6 +25,8 @@ public class CharacterControllerMisho : MonoBehaviour
     {
         Vector3 movement = input.y * localDirection.forward + input.x * localDirection.right;
 
+        movement.Normalize();
+
         movement *= _speed * Time.deltaTime;
         movement.y = 0;
 

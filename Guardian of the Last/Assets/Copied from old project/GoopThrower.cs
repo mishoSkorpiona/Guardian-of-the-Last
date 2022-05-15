@@ -10,6 +10,7 @@ public class GoopThrower : MonoBehaviour
     public GameObject projectilePrefab;
     public Transform spawnPosition;
     public Animator anim;
+    public SAudioManager am;
 
     GameObject spawnedProjectile;
     GoopProjectile goopProjectile;
@@ -40,7 +41,7 @@ public class GoopThrower : MonoBehaviour
         playerCam = GetComponentInChildren<ThirdPersonCam>();
     }
 
-   public void PrimaryFire(InputAction.CallbackContext c)
+    public void PrimaryFire(InputAction.CallbackContext c)
     {
         if (goopProjectile == null)
         {
@@ -63,6 +64,8 @@ public class GoopThrower : MonoBehaviour
 
     public void KillProjectile()
     {
+        am.Play("ProjectileDeath");
+
         Destroy(spawnedProjectile);
 
         playerCam.enabled = true;
@@ -73,6 +76,8 @@ public class GoopThrower : MonoBehaviour
 
     public void Teleport()
     {
+        am.Play("Teleport");
+
         Transform projectileTransform = goopProjectile.transform;
 
         transform.SetPositionAndRotation(projectileTransform.position, projectileTransform.rotation);
@@ -81,6 +86,8 @@ public class GoopThrower : MonoBehaviour
 
     public IEnumerator ThrowProjectile()
     {
+        am.Play("Fling");
+
         anim.SetTrigger("Throw");
 
         yield return new WaitForSeconds(0.5f);
