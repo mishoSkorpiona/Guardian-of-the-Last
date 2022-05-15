@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LockedDoor : MonoBehaviour
 {
@@ -41,5 +42,18 @@ public class LockedDoor : MonoBehaviour
         {
             t.doorOpened = true;
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        foreach (Target t in targets)
+        {
+            if (!t.doorOpened)
+            {
+                return;
+            }
+        }
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
