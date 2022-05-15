@@ -18,7 +18,7 @@ public class GoopProjectile : MonoBehaviour
 
     private void Start()
     {
-        throwDirection = transform.forward + Mathf.Clamp01(-transform.forward.y) * Vector3.up;
+        throwDirection = transform.forward + Mathf.Clamp01(-transform.forward.y) * 3 * Vector3.up;
 
         myRigidbody.AddForce(throwDirection * throwDistance);
     }
@@ -49,10 +49,10 @@ public class GoopProjectile : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        // this draws the collider in the scene, remove this when working with the actual model
-        Gizmos.color = new Color(0.69f, /*nice*/ 0.043f, 0.898f); // this is colour #B00BE5
-        Gizmos.DrawSphere(transform.position, 0.5f);
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    // this draws the collider in the scene, remove this when working with the actual model
+    //    Gizmos.color = new Color(0.69f, /*nice*/ 0.043f, 0.898f); // this is colour #B00BE5
+    //    Gizmos.DrawSphere(transform.position, 0.5f);
+    //}
 }

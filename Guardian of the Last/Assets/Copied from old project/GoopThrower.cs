@@ -9,6 +9,7 @@ public class GoopThrower : MonoBehaviour
     public float spawnOffset = 0.5f;
     public GameObject projectilePrefab;
     public Transform spawnPosition;
+    public Animator anim;
 
     GameObject spawnedProjectile;
     GoopProjectile goopProjectile;
@@ -43,7 +44,7 @@ public class GoopThrower : MonoBehaviour
     {
         if (goopProjectile == null)
         {
-            ThrowProjectile();
+            StartCoroutine(ThrowProjectile());
         }
         else if (goopProjectile.stuck)
         {
@@ -78,8 +79,12 @@ public class GoopThrower : MonoBehaviour
         KillProjectile();
     }
 
-    public void ThrowProjectile()
+    public IEnumerator ThrowProjectile()
     {
+        anim.SetTrigger("Throw");
+
+        yield return new WaitForSeconds(0.5f);
+
         Transform cameraTransform = playerCam.transform;
 
         spawnedProjectile = Instantiate(projectilePrefab, spawnPosition.position + cameraTransform.forward * spawnOffset, cameraTransform.rotation);

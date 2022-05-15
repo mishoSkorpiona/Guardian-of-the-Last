@@ -5,10 +5,13 @@ using UnityEngine.InputSystem;
 
 public class KillOnSight : MonoBehaviour
 {
+    public Animator a;
+    public CycleFollower cf;
+
     public LayerMask playerMask;
     public LayerMask wallMask;
 
-    private void OnTriggerEnter(Collider collision)
+    private void OnTriggerStay(Collider collision)
     {
         GameObject go = collision.gameObject;
 
@@ -33,17 +36,27 @@ public class KillOnSight : MonoBehaviour
                 ThirdPersonCam playerCam = go.GetComponentInChildren<ThirdPersonCam>();
                 playerCam.enabled = false;
 
+                playerCam.cam.transform.rotation = Quaternion.LookRotation((transform.position + Vector3.up * 1.7f) - playerCam.cam.transform.position, Vector3.up);
+                playerCam.cam.transform.parent = transform;
+
                 //Jeff wants me to fuck with camera?  I fuck with camera
                 StartCoroutine(FuckWithCamera(playerCam.cam));
+
+                a.SetTrigger("Game Over");
+                Destroy(cf);
             }
         }
     }
 
     public IEnumerator FuckWithCamera(Camera c)
     {
+        float minFOV = 5;
+        float timeInSeconds = 0;
+
         while (true)
         {
-            c.fieldOfView--;
+            timeInSeconds += Time.fixedDeltaTime;
+            c.fieldOfView = Mathf.Lerp(90, minFOV, Mathf.Min(1, timeInSeconds / 0.7f));
             yield return new WaitForFixedUpdate();
         }
     }

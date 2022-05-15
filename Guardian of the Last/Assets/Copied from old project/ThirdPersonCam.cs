@@ -8,7 +8,8 @@ public class ThirdPersonCam : MonoBehaviour
 
     public Camera cam;
 
-    public Transform body;
+    public Transform Ybody;
+    public Transform Xbody;
     float xRotation;
     float yRotation;
 
@@ -43,7 +44,8 @@ public class ThirdPersonCam : MonoBehaviour
 
         yRotation %= 360;
 
-        body.localRotation = Quaternion.Euler(xRotation, yRotation, 0);
+        Ybody.localRotation = Quaternion.Euler(0, yRotation, 0);
+        Xbody.localRotation = Quaternion.Euler(xRotation, 0, 0);
 
         //transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
         //body.Rotate(Vector3.up * deltaMouse.x);
