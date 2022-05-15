@@ -7,6 +7,8 @@ public class Target : MonoBehaviour
     public GameObject rightLight;
     public GameObject wrongLight;
 
+    public SAudioManager sam;
+
     LockedDoor lockedDoor;
 
     [HideInInspector]
@@ -22,6 +24,7 @@ public class Target : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         activeTime = Time.time;
+        sam.Play("Click");
         lockedDoor.TargetHit();
         StartCoroutine(SetLight());
     }

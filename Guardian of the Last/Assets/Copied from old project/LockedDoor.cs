@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LockedDoor : MonoBehaviour
 {
+    public SAudioManager sam;
     public Target[] targets;
     public float timeBetweentargets;
 
@@ -33,6 +34,8 @@ public class LockedDoor : MonoBehaviour
 
         //open the door
         Debug.Log("Door opened!");
+
+        sam.Play("Open");
 
         foreach (Target t in targets)
         {
